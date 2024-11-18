@@ -2,7 +2,7 @@ import express from 'express';
 import pino from 'pino-http';
 import cors from 'cors';
 import 'dotenv/config';
-import { Contact } from './services/contacts.js';
+import { getAllContacts, getContactById } from './services/contacts.js';
 
 export const setupServer = () => {
   const app = express();
@@ -20,7 +20,7 @@ export const setupServer = () => {
   );
 
   app.get('/contacts', async (req, res) => {
-    const contacts = await Contact.find();
+    const contacts = await getAllContacts();
     res.send({
       status: 200,
       message: 'Successfully found contacts!',
@@ -31,7 +31,7 @@ export const setupServer = () => {
   app.get('/contacts/:contactId', async (req, res) => {
     const { contactId } = req.params;
 
-    const contact = await Contact.findById(contactId);
+    const contact = await getContactById(contactId);
 
     if (contact === null) {
       return res.status(404).send({ message: 'Contact not found' });

@@ -1,28 +1,9 @@
-import mongoose from 'mongoose';
+import { Contact } from '../db/models/contacts.js';
 
-const contactsSchema = new mongoose.Schema(
-  {
-    name: {
-      type: String,
-      required: true,
-    },
-    phoneNumber: {
-      type: String,
-      required: true,
-    },
-    email: { type: String },
-    isFavourite: { type: Boolean, default: false },
-    contactType: {
-      type: String,
-      enum: [`work`, `home`, `personal`],
-      required: true,
-      default: `personal`,
-    },
-  },
-  {
-    timestamps: true,
-    versionKey: false,
-  },
-);
+export const getAllContacts = async () => {
+  return Contact.find();
+};
 
-export const Contact = mongoose.model('Contact', contactsSchema);
+export const getContactById = async (id) => {
+  return await Contact.findById(id);
+};
