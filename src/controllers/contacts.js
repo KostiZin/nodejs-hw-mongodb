@@ -22,7 +22,7 @@ export const getContactsByIdController = async (req, res) => {
   const contact = await getContactById(contactId);
 
   if (contact === null) {
-    throw createHttpError(404, 'Contact not found');
+    throw new createHttpError.NotFound('Contact not found');
   }
 
   res.send({
@@ -33,18 +33,35 @@ export const getContactsByIdController = async (req, res) => {
 };
 
 export const createContactController = async (req, res) => {
-  const contact = await createContact(req.body);
-  res.send({
+  const contact = {
+    name: req.body.name,
+    phoneNumber: req.body.phoneNumber,
+    email: req.body.email,
+    isFavourite: req.body.isFavourite,
+    contactType: req.body.contactType,
+  };
+
+  const result = await createContact(contact);
+
+  res.status(201).send({
     status: 201,
     message: 'Successfully created a contact!',
-    data: contact,
+    data: result,
   });
 };
 
 export const patchContactController = async (req, res, next) => {
   const { contactId } = req.params;
 
-  const result = await patchContact(contactId, req.body);
+  const contact = {
+    name: req.body.name,
+    phoneNumber: req.body.phoneNumber,
+    email: req.body.email,
+    isFavourite: req.body.isFavourite,
+    contactType: req.body.contactType,
+  };
+
+  const result = await patchContact(contactId, contact);
 
   if (result === null) {
     next(createHttpError(404, 'Contact not found'));
@@ -53,18 +70,17 @@ export const patchContactController = async (req, res, next) => {
   res.send({
     status: 200,
     message: 'Successfully patched a contact!',
-    data: result.contact,
+    data: result,
   });
 };
 
-export const deleteContactController = async (req, res, next) => {
+export const deleteContactController = async (req, res) => {
   const { contactId } = req.params;
-  const contact = await deleteContact(contactId);
+  const result = await deleteContact(contactId);
 
-  if (contact === null) {
-    next(createHttpError(404, 'Contact not found'));
-    return;
+  if (result === null) {
+    throw new createHttpError.NotFound('Contact not found');
   }
 
-  res.send({ status: 204 });
+  res.status(204).send({ status: 204 });
 };
