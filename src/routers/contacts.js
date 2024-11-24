@@ -10,14 +10,14 @@ import { ctrlWrapper } from '../utils/ctrlWrapper.js';
 
 const router = Router();
 
-router.get('/contacts', ctrlWrapper(getContactsController));
+router.get('/', ctrlWrapper(getContactsController));
 
-router.get('/contacts/:contactId', ctrlWrapper(getContactsByIdController));
+router.get('/:contactId', ctrlWrapper(getContactsByIdController));
 
-router.post('/contacts', ctrlWrapper(createContactController));
+router.post('/', ctrlWrapper(createContactController));
 
-router.delete('/contacts/:contactId', ctrlWrapper(deleteContactController));
+router.delete('/:contactId', ctrlWrapper(deleteContactController));
 
-router.patch('/contacts/:contactId', ctrlWrapper(patchContactController));
+router.patch('/:contactId', ctrlWrapper(patchContactController));
 
 export default router;
