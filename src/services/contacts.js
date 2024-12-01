@@ -34,8 +34,8 @@ export const getAllContacts = async ({
     perPage,
     totalItems: total,
     totalPages: totalPages,
-    hasNextPage: totalPages - page > 0,
     hasPreviousPage: page > 1,
+    hasNextPage: totalPages - page > 0,
   };
 };
 
