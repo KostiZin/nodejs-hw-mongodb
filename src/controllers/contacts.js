@@ -21,6 +21,7 @@ export const getContactsController = async (req, res) => {
     sortBy,
     sortOrder,
     filter,
+    userId: req.user.id,
   });
 
   res.send({
@@ -39,6 +40,10 @@ export const getContactsByIdController = async (req, res) => {
     throw new createHttpError.NotFound('Contact not found');
   }
 
+  if (contact.userId.toString() !== req.user.id.toString()) {
+    throw new createHttpError.NotFound('Contact not found');
+  }
+
   res.send({
     status: 200,
     message: `Successfully found contact with id ${contactId}!`,
@@ -53,6 +58,7 @@ export const createContactController = async (req, res) => {
     email: req.body.email,
     isFavourite: req.body.isFavourite,
     contactType: req.body.contactType,
+    userId: req.user.id,
   };
 
   const result = await createContact(contact);
