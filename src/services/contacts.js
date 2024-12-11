@@ -40,20 +40,18 @@ export const getAllContacts = async ({
   };
 };
 
-export const getContactById = (id) => {
-  return Contact.findById(id);
+export const getContactById = (id, userId) => {
+  return Contact.findOne({ _id: id, userId });
 };
 
 export const createContact = (contact) => {
   return Contact.create(contact);
 };
 
-export const patchContact = (id, contact) => {
-  return Contact.findByIdAndUpdate(id, contact, {
-    new: true,
-  });
+export const patchContact = (id, userId, contact) => {
+  return Contact.findOneAndUpdate({ _id: id, userId }, contact, { new: true });
 };
 
-export const deleteContact = (id) => {
-  return Contact.findByIdAndDelete(id);
+export const deleteContact = (id, userId) => {
+  return Contact.findOneAndDelete({ _id: id, userId });
 };

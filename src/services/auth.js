@@ -45,13 +45,9 @@ export async function logoutUser(sessionId) {
 }
 
 export async function refreshSession(sessionId, refreshToken) {
-  const session = await Session.findById(sessionId);
+  const session = await Session.findOne({ _id: sessionId, refreshToken });
 
   if (session === null) {
-    throw createHttpError(401, 'Session not found');
-  }
-
-  if (session.refreshToken !== refreshToken) {
     throw createHttpError(401, 'Session not found');
   }
 
