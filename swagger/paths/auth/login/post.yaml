@@ -1,0 +1,67 @@
+tags:
+  - Authorization
+summary: Log user in
+operationId: loginUser
+description: Log user in
+security: []
+requestBody:
+  content:
+    application/json:
+      schema:
+        type: object
+        required:
+          - email
+          - password
+        properties:
+          email:
+            description: "User's email"
+            type: string
+            example: 'jack.j@gmail.com'
+          password:
+            description: "User's password"
+            type: string
+            example: kjyhyf876D$
+responses:
+  '200':
+    description: Log user in
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - status
+            - message
+            - data
+          properties:
+            status:
+              type: integer
+              example: 200
+            message:
+              type: string
+              example: Successfully logged in a user!
+            data:
+              type: object
+              required:
+                - accessToken
+              properties:
+                accessToken:
+                  type: string
+                  example: '0344f0jFAbZSvggouAK9QpkryKzVshg/JsV897kP'
+  '401':
+    description: Invalid credentials
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - status
+            - message
+          properties:
+            status:
+              type: integer
+              example: 401
+            message:
+              type: string
+              example: Email or password is incorrect
+  '500':
+    $ref: ../../../components/responses/500.yaml

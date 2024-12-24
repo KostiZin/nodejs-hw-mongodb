@@ -1,0 +1,51 @@
+tags:
+  - Authorization
+summary: Refresh session
+operationId: refreshSession
+description: Refresh session
+security:
+  - bearerAuth: []
+responses:
+  '200':
+    description: Refresh session
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - status
+            - message
+            - data
+          properties:
+            status:
+              type: integer
+              example: 200
+            message:
+              type: string
+              example: Successfully refreshed a session!
+            data:
+              type: object
+              required:
+                - accessToken
+              properties:
+                accessToken:
+                  type: string
+                  example: '0344f0jFAbZSvggouAK9QpkryKzVshg/JsV897kP'
+  '401':
+    description: Session not found
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - status
+            - message
+          properties:
+            status:
+              type: integer
+              example: 401
+            message:
+              type: string
+              example: Session not found
+  '500':
+    $ref: ../../../components/responses/500.yaml

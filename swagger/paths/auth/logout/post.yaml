@@ -1,0 +1,28 @@
+tags:
+  - Authorization
+summary: Log user out
+operationId: logoutUser
+description: Log user out
+security:
+  - bearerAuth: []
+responses:
+  '204':
+    description: Log user out
+  '401':
+    description: Session not found
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - status
+            - message
+          properties:
+            status:
+              type: integer
+              example: 401
+            message:
+              type: string
+              example: Session not found
+  '500':
+    $ref: ../../../components/responses/500.yaml
