@@ -38,7 +38,7 @@ responses:
               example: 200
             message:
               type: string
-              example: Successfully logged in a user!
+              example: Successfully logged the user in!
             data:
               type: object
               required:

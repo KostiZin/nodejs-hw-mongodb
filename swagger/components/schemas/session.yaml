@@ -1,0 +1,30 @@
+type: object
+required:
+  - userId
+  - accessToken
+  - refreshToken
+  - accessTokenValidUntil
+  - refreshTokenValidUntil
+properties:
+  userId:
+    description: "User's ID"
+    type: string
+    example: '67366fdeb4ef1ce0fdc1356d'
+  accessToken:
+    description: "User's access token"
+    type: string
+    example: 'jack.j@gmail.com'
+  refreshToken:
+    description: "User's refresh token"
+    type: string
+    example: 'kjyhyf876D$'
+  accessTokenValidUntil:
+    description: 'Access token validity period'
+    type: string
+    format: date-time
+    example: 2017-07-21T17:32:28Z
+  refreshTokenValidUntil:
+    description: 'Refresh token validity period'
+    type: string
+    format: date-time
+    example: 2018-07-21T17:32:28Z

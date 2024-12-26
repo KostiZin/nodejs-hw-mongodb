@@ -50,3 +50,10 @@ components:
     bearerAuth:
       type: http
       scheme: bearer
+  schemas:
+    contact:
+      $ref: ../swagger/components/schemas/contact.yaml
+    user:
+      $ref: ../swagger/components/schemas/user.yaml
+    session:
+      $ref: '../swagger/components/schemas/session.yaml'

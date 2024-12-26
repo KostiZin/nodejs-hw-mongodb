@@ -13,14 +13,20 @@ properties:
   name:
     description: "Contact's name"
     type: string
+    minLength: 3
+    maxLength: 20
     example: 'Martyna Dell'
   phoneNumber:
     description: "Contact's phone number"
     type: string
+    minLength: 3
+    maxLength: 20
     example: '+380931074242'
   email:
     description: "Contact's email"
     type: string
+    minLength: 3
+    maxLength: 20
     example: 'martyna.dell@gmail.com'
   isFavourite:
     description: 'Whether the contact is favourite'

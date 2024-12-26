@@ -20,7 +20,7 @@ export async function registerUser(payload) {
   const user = await User.findOne({ email: payload.email });
 
   if (user !== null) {
-    throw createHttpError(409, 'Email in use');
+    throw createHttpError(409, 'Email is in use');
   }
 
   payload.password = await bcrypt.hash(payload.password, 10);

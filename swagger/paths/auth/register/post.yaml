@@ -43,11 +43,28 @@ responses:
               example: 201
             message:
               type: string
-              example: Successfully registered a user!
+              example: User successfully registered!
             data:
-              $ref: '../../../components/schemas/user.yaml'
+              type: object
+              required:
+                - name
+                - email
+                - _id
+              properties:
+                name:
+                  description: "User's name"
+                  type: string
+                  example: 'Jack Johnson'
+                email:
+                  description: "User's email"
+                  type: string
+                  example: 'jack.j@gmail.com'
+                _id:
+                  description: "User's id"
+                  type: string
+                  example: 67366fdeb4ef1ce0fdc1356d
   '409':
-    description: Email in use
+    description: Email is in use
     content:
       application/json:
         schema:
@@ -61,6 +78,6 @@ responses:
               example: 409
             message:
               type: string
-              example: Email in use
+              example: Email is in use
   '500':
     $ref: ../../../components/responses/500.yaml

@@ -29,12 +29,12 @@ responses:
               example: 200
             message:
               type: string
-              example: Successfully found contact with id 67366fdeb4ef1ce0fdc1356d!
+              example: Successfully found the contact with ID 67366fdeb4ef1ce0fdc1356d!
             data:
               type: object
               $ref: ../../../components/schemas/contact.yaml
-  # '401':
-  #   $ref: ../../../components/responses/401.yaml
+  '401':
+    $ref: ../../../components/responses/401.yaml
   '404':
     $ref: ../../../components/responses/404.yaml
   '500':

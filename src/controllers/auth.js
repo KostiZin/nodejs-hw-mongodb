@@ -18,7 +18,7 @@ export async function registerController(req, res) {
 
   res.status(201).send({
     status: 201,
-    message: 'Successfully registered a user!',
+    message: 'User successfully registered!',
     data: registeredUser,
   });
 }
@@ -40,7 +40,7 @@ export async function loginController(req, res) {
 
   res.send({
     status: 200,
-    message: 'Successfully logged in a user!',
+    message: 'Successfully logged the user in!',
     data: { accessToken: session.accessToken },
   });
 }

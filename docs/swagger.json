@@ -63,12 +63,12 @@
                     "example": "+380931074242"
                   },
                   "email": {
-                    "description": "Contact's email, max 20 characters",
+                    "description": "Contact's email",
                     "type": "string",
                     "example": "m.dell@gmail.com"
                   },
                   "isFavourite": {
-                    "description": "Whether the contact is favourite",
+                    "description": "Whether the contact is marked as a favorite",
                     "type": "boolean",
                     "example": true,
                     "default": false
@@ -123,8 +123,8 @@
               }
             }
           },
-          "404": {
-            "$ref": "#/components/responses/404"
+          "401": {
+            "$ref": "#/components/responses/401"
           },
           "500": {
             "$ref": "#/components/responses/500"
@@ -271,8 +271,8 @@
               }
             }
           },
-          "404": {
-            "$ref": "#/components/responses/404"
+          "401": {
+            "$ref": "#/components/responses/401"
           },
           "500": {
             "$ref": "#/components/responses/500"
@@ -323,7 +323,7 @@
                     },
                     "message": {
                       "type": "string",
-                      "example": "Successfully found contact with id 67366fdeb4ef1ce0fdc1356d!"
+                      "example": "Successfully found the contact with ID 67366fdeb4ef1ce0fdc1356d!"
                     },
                     "data": {
                       "type": "object",
@@ -333,6 +333,9 @@
                 }
               }
             }
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
           },
           "404": {
             "$ref": "#/components/responses/404"
@@ -387,7 +390,7 @@
                     "example": "martyna.dell@gmail.com"
                   },
                   "isFavourite": {
-                    "description": "Whether the contact is favourite",
+                    "description": "Whether the contact is marked as a favorite",
                     "type": "boolean",
                     "example": true,
                     "default": false
@@ -432,7 +435,7 @@
                     },
                     "message": {
                       "type": "string",
-                      "example": "Successfully patched a contact!"
+                      "example": "Successfully patched the contact!"
                     },
                     "data": {
                       "$ref": "#/components/schemas/contact"
@@ -441,6 +444,9 @@
                 }
               }
             }
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
           },
           "404": {
             "$ref": "#/components/responses/404"
@@ -492,6 +498,9 @@
                 }
               }
             }
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
           },
           "404": {
             "$ref": "#/components/responses/404"
@@ -561,10 +570,32 @@
                     },
                     "message": {
                       "type": "string",
-                      "example": "Successfully registered a user!"
+                      "example": "User successfully registered!"
                     },
                     "data": {
-                      "$ref": "#/components/schemas/user"
+                      "type": "object",
+                      "required": [
+                        "name",
+                        "email",
+                        "_id"
+                      ],
+                      "properties": {
+                        "name": {
+                          "description": "User's name",
+                          "type": "string",
+                          "example": "Jack Johnson"
+                        },
+                        "email": {
+                          "description": "User's email",
+                          "type": "string",
+                          "example": "jack.j@gmail.com"
+                        },
+                        "_id": {
+                          "description": "User's id",
+                          "type": "string",
+                          "example": "67366fdeb4ef1ce0fdc1356d"
+                        }
+                      }
                     }
                   }
                 }
@@ -572,7 +603,7 @@
             }
           },
           "409": {
-            "description": "Email in use",
+            "description": "Email is in use",
             "content": {
               "application/json": {
                 "schema": {
@@ -588,7 +619,7 @@
                     },
                     "message": {
                       "type": "string",
-                      "example": "Email in use"
+                      "example": "Email is in use"
                     }
                   }
                 }
@@ -654,7 +685,7 @@
                     },
                     "message": {
                       "type": "string",
-                      "example": "Successfully logged in a user!"
+                      "example": "Successfully logged the user in!"
                     },
                     "data": {
                       "type": "object",
@@ -1095,16 +1126,22 @@
           "name": {
             "description": "Contact's name",
             "type": "string",
+            "minLength": 3,
+            "maxLength": 20,
             "example": "Martyna Dell"
           },
           "phoneNumber": {
             "description": "Contact's phone number",
             "type": "string",
+            "minLength": 3,
+            "maxLength": 20,
             "example": "+380931074242"
           },
           "email": {
             "description": "Contact's email",
             "type": "string",
+            "minLength": 3,
+            "maxLength": 20,
             "example": "martyna.dell@gmail.com"
           },
           "isFavourite": {
@@ -1141,7 +1178,7 @@
         "required": [
           "name",
           "email",
-          "_id"
+          "password"
         ],
         "properties": {
           "name": {
@@ -1150,14 +1187,53 @@
             "example": "Jack Johnson"
           },
           "email": {
-            "description": "User's email",
+            "description": "User's email (must be unique)",
             "type": "string",
             "example": "jack.j@gmail.com"
           },
-          "_id": {
-            "description": "User's id",
+          "password": {
+            "description": "User's password",
+            "type": "string",
+            "example": "kjyhyf876D$"
+          }
+        }
+      },
+      "session": {
+        "type": "object",
+        "required": [
+          "userId",
+          "accessToken",
+          "refreshToken",
+          "accessTokenValidUntil",
+          "refreshTokenValidUntil"
+        ],
+        "properties": {
+          "userId": {
+            "description": "User's ID",
             "type": "string",
             "example": "67366fdeb4ef1ce0fdc1356d"
+          },
+          "accessToken": {
+            "description": "User's access token",
+            "type": "string",
+            "example": "jack.j@gmail.com"
+          },
+          "refreshToken": {
+            "description": "User's refresh token",
+            "type": "string",
+            "example": "kjyhyf876D$"
+          },
+          "accessTokenValidUntil": {
+            "description": "Access token validity period",
+            "type": "string",
+            "format": "date-time",
+            "example": "2017-07-21T17:32:28Z"
+          },
+          "refreshTokenValidUntil": {
+            "description": "Refresh token validity period",
+            "type": "string",
+            "format": "date-time",
+            "example": "2018-07-21T17:32:28Z"
           }
         }
       }
@@ -1181,7 +1257,7 @@
                 },
                 "message": {
                   "type": "string",
-                  "example": "UnauthorizedError"
+                  "example": "Unauthorized Error"
                 },
                 "data": {
                   "type": "object",
